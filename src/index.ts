@@ -13,18 +13,17 @@ import * as inputNumber from "./number.json";
  */
 const getCarryVal = (N: number, input: string[]): number => {
   const elementLength = input[0].length;
-  let colPosition = 0;
-  let carry = 0;
-  while (colPosition < elementLength - N) {
-    const sum = input.reduce(
-      (prev, curr) => prev + Number(curr[elementLength - 1 - colPosition]), 
-      0
-    );
-    const total = sum + carry;
-    carry = Math.floor(total/10);
-    colPosition++;
-  }
-  return carry;
+
+  const cols = Array.from(
+    { length: elementLength - N }, (_, k) => (elementLength - 1 - k)
+  );
+
+  return cols.reduce((carry, colIndex) => {
+    const sum = input.reduce((_prev, _curr) => 
+      _prev + (_curr.charCodeAt(colIndex) - 48)
+    , 0);
+    return Math.floor(sum / 10);
+  }, 0);
 }
 
 /**
