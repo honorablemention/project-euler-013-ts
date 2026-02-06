@@ -22,7 +22,7 @@ const getCarryVal = (N: number, input: string[]): number => {
     const sum = input.reduce((_prev, _curr) => 
       _prev + (_curr.charCodeAt(colIndex) - 48)
     , 0);
-    return Math.floor(sum / 10);
+    return Math.floor((sum + carry) / 10);
   }, 0);
 }
 
